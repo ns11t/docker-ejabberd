@@ -1,4 +1,4 @@
-FROM google/debian:wheezy
+FROM antonikonovalov/docker-golang
 
 ENV EJABBERD_VERSION 14.12
 ENV EJABBERD_USER ejabberd
