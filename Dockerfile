@@ -51,7 +51,8 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
 
 # Make mod_muc_admin
 RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
-    && ./$EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/build.sh \ 
+    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
+    && sh build.sh \
     && cp $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime
