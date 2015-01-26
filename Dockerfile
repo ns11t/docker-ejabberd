@@ -1,5 +1,5 @@
-FROM debian:7
-MAINTAINER Rafael Römhild <rafael@roemhild.de>
+FROM google/debian:wheezy
+MAINTAINER Anton Konovalov
 
 ENV EJABBERD_VERSION 14.12
 ENV EJABBERD_USER ejabberd
@@ -17,18 +17,16 @@ RUN groupadd -r $EJABBERD_USER \
        -s /usr/sbin/nologin \
        $EJABBERD_USER
 
-# Install requirements
-RUN apt-get update \
-    && apt-get -y --no-install-recommends install \
-        wget \
+RUN apt-get update -y \
+    && apt-get install --no-install-recommends -y -q \
+        curl \
+        build-essential ca-certificates git mercurial bzr \
         python2.7 \
         python-jinja2 \
-        ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
+    
 # Install as user
 USER $EJABBERD_USER
-
 # Install ejabberd
 RUN wget -q -O /tmp/ejabberd-installer.run "http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/$EJABBERD_VERSION/ejabberd-$EJABBERD_VERSION-linux-x86_64-installer.run" \
     && chmod +x /tmp/ejabberd-installer.run \
@@ -46,6 +44,10 @@ COPY ejabberdctl.cfg.tpl $EJABBERD_ROOT/conf/ejabberdctl.cfg.tpl
 RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
+# Make mod_muc_admin
+RUN git clone https://github.com/processone/ejabberd-contrib.git /opt/ejabberd-contrib \
+    && ./opt/ejabberd-contrib/mod_muc_admin/build.sh \
+    && cp /opt/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin/
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime
 COPY ./run $EJABBERD_ROOT/bin/run
