@@ -16,10 +16,6 @@ RUN groupadd -r $EJABBERD_USER \
        -d $EJABBERD_ROOT \
        -s /usr/sbin/nologin \
        $EJABBERD_USER
-# set erlang 
-RUN wget -q -O /tmp/erlang-solutions_1.0_all.deb https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
-    && chmod +x /tmp/erlang-solutions_1.0_all.deb \
-    && dpkg -i /tmp/erlang-solutions_1.0_all.deb
 
 # update and install tools
 RUN apt-get update -y \
@@ -29,6 +25,12 @@ RUN apt-get update -y \
         python2.7 python-jinja2 erlang \
     && rm -rf /var/lib/apt/lists/*
     
+
+# Install erlang 
+RUN wget -q -O /tmp/erlang-solutions_1.0_all.deb "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" \
+    && chmod +x /tmp/erlang-solutions_1.0_all.deb \
+    && dpkg -i /tmp/erlang-solutions_1.0_all.deb
+
 # Install as user
 USER $EJABBERD_USER
 # Install ejabberd
