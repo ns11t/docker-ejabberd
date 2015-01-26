@@ -17,10 +17,10 @@ RUN groupadd -r $EJABBERD_USER \
        -s /usr/sbin/nologin \
        $EJABBERD_USER
 # set erlang 
-RUN ls /etc/apt/sources.list
-RUN echo 'deb http://packages.erlang-solutions.com/debian wheezy contrib' >> /etc/apt/sources.list
-RUN wget http://packages.erlang-solutions.com/debian/erlang_solutions.asc
-RUN apt-key add erlang_solutions.asc
+RUN wget -q -O /tmp/erlang-solutions_1.0_all.deb https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+    && chmod +x /tmp/erlang-solutions_1.0_all.deb \
+    && dpkg -i /tmp/erlang-solutions_1.0_all.deb
+
 # update and install tools
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y -q \
