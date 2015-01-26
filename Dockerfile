@@ -17,7 +17,7 @@ RUN groupadd -r $EJABBERD_USER \
        -s /usr/sbin/nologin \
        $EJABBERD_USER
 # set erlang 
-RUN echo "deb http://packages.erlang-solutions.com/debian wheezy contrib" >> /etc/apt/sources.list \
+RUN "echo 'deb http://packages.erlang-solutions.com/debian wheezy contrib' >> /etc/apt/sources.list" \
     && wget http://packages.erlang-solutions.com/debian/erlang_solutions.asc \\
     && apt-key add erlang_solutions.asc
 # update and install tools
