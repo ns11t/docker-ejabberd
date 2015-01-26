@@ -1,5 +1,4 @@
 FROM google/debian:wheezy
-MAINTAINER Anton Konovalov
 
 ENV EJABBERD_VERSION 14.12
 ENV EJABBERD_USER ejabberd
@@ -41,7 +40,6 @@ RUN wget -q -O /tmp/ejabberd-installer.run "http://www.process-one.net/downloads
             --prefix $EJABBERD_ROOT \
             --adminpw ejabberd \
     && rm -rf /tmp/* \
-    && mkdir /opt/ejabberd-contrib \
     && mkdir $EJABBERD_ROOT/ssl \
     && rm -rf $EJABBERD_ROOT/database/ejabberd@localhost
 
@@ -52,7 +50,10 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
 # Make mod_muc_admin
-RUN git clone https://github.com/processone/ejabberd-contrib.git /opt/ejabberd-contrib && ./opt/ejabberd-contrib/mod_muc_admin/build.sh && cp /opt/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+ADD $EJABBERD_ROOT/../ejabberd-contrib
+RUN git clone https://github.com/processone/ejabberd-contrib.git /opt/ejabberd-contrib \
+    && ./opt/ejabberd-contrib/mod_muc_admin/build.sh \ 
+    && cp /opt/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime
 COPY ./run $EJABBERD_ROOT/bin/run
