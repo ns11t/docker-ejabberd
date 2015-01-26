@@ -22,7 +22,7 @@ RUN apt-get update -y \
     && apt-get install --no-install-recommends -y -q \
         curl wget \
         build-essential ca-certificates git mercurial bzr \
-        python2.7 python-jinja2 erlang \
+        python2.7 python-jinja2 \
     && rm -rf /var/lib/apt/lists/*
     
 
@@ -41,6 +41,7 @@ RUN wget -q -O /tmp/ejabberd-installer.run "http://www.process-one.net/downloads
             --prefix $EJABBERD_ROOT \
             --adminpw ejabberd \
     && rm -rf /tmp/* \
+    && mkdir /opt/ejabberd-contrib \
     && mkdir $EJABBERD_ROOT/ssl \
     && rm -rf $EJABBERD_ROOT/database/ejabberd@localhost
 
@@ -51,9 +52,7 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
 # Make mod_muc_admin
-RUN git clone https://github.com/processone/ejabberd-contrib.git /opt/ejabberd-contrib \
-    && ./opt/ejabberd-contrib/mod_muc_admin/build.sh \
-    && cp /opt/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin/
+RUN git clone https://github.com/processone/ejabberd-contrib.git /opt/ejabberd-contrib && ./opt/ejabberd-contrib/mod_muc_admin/build.sh && cp /opt/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime
 COPY ./run $EJABBERD_ROOT/bin/run
