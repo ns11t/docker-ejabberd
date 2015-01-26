@@ -27,9 +27,9 @@ RUN apt-get update -y \
     
 
 # Install erlang 
-RUN wget -q -O /tmp/erlang-solutions_1.0_all.deb "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" \
-    && chmod +x /tmp/erlang-solutions_1.0_all.deb \
-    && dpkg -i /tmp/erlang-solutions_1.0_all.deb
+#RUN wget -q -O /tmp/erlang-solutions_1.0_all.deb "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" \
+   # && chmod +x /tmp/erlang-solutions_1.0_all.deb \
+  #  && dpkg -i /tmp/erlang-solutions_1.0_all.deb
 
 # Install as user
 USER $EJABBERD_USER
