@@ -20,7 +20,7 @@ RUN groupadd -r $EJABBERD_USER \
 # update and install tools
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y -q \
-        curl \
+        curl wget \
         build-essential ca-certificates git mercurial bzr \
         python2.7 python-jinja2 erlang \
     && rm -rf /var/lib/apt/lists/*
