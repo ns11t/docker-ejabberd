@@ -16,13 +16,16 @@ RUN groupadd -r $EJABBERD_USER \
        -d $EJABBERD_ROOT \
        -s /usr/sbin/nologin \
        $EJABBERD_USER
-
+# set erlang 
+RUN cat "deb http://packages.erlang-solutions.com/debian wheezy contrib" >> /etc/apt/sources.list \
+    && wget http://packages.erlang-solutions.com/debian/erlang_solutions.asc \\
+    && apt-key add erlang_solutions.asc
+# update and install tools
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y -q \
         curl \
         build-essential ca-certificates git mercurial bzr \
-        python2.7 \
-        python-jinja2 \
+        python2.7 python-jinja2 erlang \
     && rm -rf /var/lib/apt/lists/*
     
 # Install as user
