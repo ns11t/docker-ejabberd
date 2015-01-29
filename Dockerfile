@@ -3,8 +3,8 @@ FROM antonikonovalov/docker-golang
 ENV EJABBERD_VERSION 14.12
 ENV EJABBERD_USER ejabberd
 ENV EJABBERD_ROOT /opt/ejabberd
-ENV HOME $EJABBERD_ROOT
-ENV PATH $EJABBERD_ROOT/bin:/usr/sbin:/usr/bin:/sbin:/bin
+#RUN export HOME=$EJABBERD_ROOT
+RUN export PATH=$EJABBERD_ROOT/bin:$PATH
 ENV DEBIAN_FRONTEND noninteractive
 ENV XMPP_DOMAIN localhost
 
@@ -60,6 +60,3 @@ COPY ./run $EJABBERD_ROOT/bin/run
 
 VOLUME ["$EJABBERD_ROOT/database", "$EJABBERD_ROOT/ssl"]
 EXPOSE 5222 5269 5280 4560
-
-CMD ["start"]
-ENTRYPOINT ["run"]
