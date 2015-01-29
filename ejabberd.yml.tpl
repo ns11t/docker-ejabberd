@@ -172,6 +172,7 @@ modules:
   ##   docroot: "/var/www"
   ##   accesslog: "/var/log/ejabberd/access.log"
   mod_last: {}
+  mod_muc_admin: {}
   mod_muc:
     host: "conference.@HOST@"
     access: muc
