@@ -22,12 +22,6 @@ RUN apt-get update -y \
         build-essential ca-certificates git mercurial bzr \
         python2.7 python-jinja2 \
     && rm -rf /var/lib/apt/lists/*
-    
-
-# Install erlang 
-#RUN wget -q -O /tmp/erlang-solutions_1.0_all.deb "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" \
-   # && chmod +x /tmp/erlang-solutions_1.0_all.deb \
-  #  && dpkg -i /tmp/erlang-solutions_1.0_all.deb
 
 # Install as user
 USER $EJABBERD_USER
@@ -35,20 +29,18 @@ USER $EJABBERD_USER
 RUN wget -q -O /tmp/ejabberd-installer.run "http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/$EJABBERD_VERSION/ejabberd-$EJABBERD_VERSION-linux-x86_64-installer.run" \
     && chmod +x /tmp/ejabberd-installer.run \
     && /tmp/ejabberd-installer.run \
-            --ejabberddomain "devtms.als.local"
-            --hostname "devtms.als.local"
             --mode unattended \
             --prefix $EJABBERD_ROOT \
             --adminpw ejabberd \
     && rm -rf /tmp/* \
     && mkdir $EJABBERD_ROOT/ssl \
-    && rm -rf $EJABBERD_ROOT/database/ejabberd@devtms.als.local
+    && rm -rf $EJABBERD_ROOT/database/ejabberd@localhost
 
 # Make config
-# COPY ejabberd.yml.tpl $EJABBERD_ROOT/conf/ejabberd.yml.tpl
-# COPY ejabberdctl.cfg.tpl $EJABBERD_ROOT/conf/ejabberdctl.cfg.tpl
-# RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
-#     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
+COPY ejabberd.yml.tpl $EJABBERD_ROOT/conf/ejabberd.yml.tpl
+COPY ejabberdctl.cfg.tpl $EJABBERD_ROOT/conf/ejabberdctl.cfg.tpl
+RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
+    && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
 # Make mod_muc_admin
 RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
@@ -61,3 +53,8 @@ COPY ./run $EJABBERD_ROOT/bin/run
 
 VOLUME ["$EJABBERD_ROOT/database", "$EJABBERD_ROOT/ssl"]
 EXPOSE 5222 5269 5280 4560
+
+CMD ["start"]
+ENTRYPOINT ["run"]
+
+USER root
