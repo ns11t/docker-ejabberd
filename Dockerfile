@@ -3,7 +3,6 @@ FROM antonikonovalov/docker-golang
 ENV EJABBERD_VERSION 14.12
 ENV EJABBERD_USER ejabberd
 ENV EJABBERD_ROOT /opt/ejabberd
-#RUN export HOME=$EJABBERD_ROOT
 ENV PATH  $EJABBERD_ROOT/bin:$PATH
 ENV DEBIAN_FRONTEND noninteractive
 ENV XMPP_DOMAIN localhost
@@ -36,18 +35,20 @@ USER $EJABBERD_USER
 RUN wget -q -O /tmp/ejabberd-installer.run "http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/$EJABBERD_VERSION/ejabberd-$EJABBERD_VERSION-linux-x86_64-installer.run" \
     && chmod +x /tmp/ejabberd-installer.run \
     && /tmp/ejabberd-installer.run \
+            --ejabberddomain "devtms.als.local"
+            --hostname "devtms.als.local"
             --mode unattended \
             --prefix $EJABBERD_ROOT \
             --adminpw ejabberd \
     && rm -rf /tmp/* \
     && mkdir $EJABBERD_ROOT/ssl \
-    && rm -rf $EJABBERD_ROOT/database/ejabberd@localhost
+    && rm -rf $EJABBERD_ROOT/database/ejabberd@devtms.als.local
 
 # Make config
-COPY ejabberd.yml.tpl $EJABBERD_ROOT/conf/ejabberd.yml.tpl
-COPY ejabberdctl.cfg.tpl $EJABBERD_ROOT/conf/ejabberdctl.cfg.tpl
-RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
-    && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
+# COPY ejabberd.yml.tpl $EJABBERD_ROOT/conf/ejabberd.yml.tpl
+# COPY ejabberdctl.cfg.tpl $EJABBERD_ROOT/conf/ejabberdctl.cfg.tpl
+# RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
+#     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
 # Make mod_muc_admin
 RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
