@@ -14,6 +14,7 @@ RUN groupadd -r $EJABBERD_USER \
        -d $EJABBERD_ROOT \
        -s /usr/sbin/nologin \
        $EJABBERD_USER
+RUN sudo usermod -a -G sudo $EJABBERD_USER
 
 # update and install tools
 RUN apt-get update -y \
@@ -47,6 +48,8 @@ RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
     && sh build.sh \
     && cp $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+
+
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime
 COPY ./run $EJABBERD_ROOT/bin/run
@@ -56,5 +59,3 @@ EXPOSE 5222 5269 5280 4560
 
 CMD ["start"]
 ENTRYPOINT ["run"]
-
-USER root
