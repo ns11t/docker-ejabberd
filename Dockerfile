@@ -1,6 +1,6 @@
 FROM antonikonovalov/docker-golang
 
-ENV EJABBERD_VERSION 15.12
+ENV EJABBERD_VERSION 15.02
 ENV EJABBERD_USER ejabberd
 ENV EJABBERD_ROOT /opt/ejabberd
 ENV PATH  $EJABBERD_ROOT/bin:$PATH
@@ -27,6 +27,7 @@ RUN apt-get update -y \
 # Install as user
 USER $EJABBERD_USER
 # Install ejabberd
+# https://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/15.02/ejabberd-15.02-linux-x86_64-installer.run
 RUN wget -q -O /tmp/ejabberd-installer.run "http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/$EJABBERD_VERSION/ejabberd-$EJABBERD_VERSION-linux-x86_64-installer.run" \
     && chmod +x /tmp/ejabberd-installer.run \
     && /tmp/ejabberd-installer.run \
