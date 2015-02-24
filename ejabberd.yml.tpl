@@ -209,6 +209,7 @@ modules:
         Hi.
         Welcome to this XMPP server.
     access: register
+  mod_mam: {}
   mod_roster: {}
   mod_shared_roster: {}
   mod_stats: {}
