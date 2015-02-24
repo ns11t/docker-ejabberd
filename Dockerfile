@@ -45,6 +45,9 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
 
 # Make mod_muc_admin
 RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
+    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
+    && sh build.sh \
+    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
     && sh build.sh \
     && cp $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
