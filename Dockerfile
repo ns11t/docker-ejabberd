@@ -51,7 +51,10 @@ RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/
     && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
     && sh build.sh \
-    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra \
+    && sh build.sh \
+    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 
 # Wrapper for setting config on disk from environment
