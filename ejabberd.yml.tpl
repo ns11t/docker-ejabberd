@@ -155,7 +155,7 @@ language: "en"
 
 modules:
   mod_adhoc: {}
-  ## mod_admin_extra: {}
+  mod_admin_extra: {}
   mod_announce: # recommends mod_adhoc
     access: announce
   mod_blocking: {} # requires mod_privacy
@@ -173,7 +173,8 @@ modules:
   ##   docroot: "/var/www"
   ##   accesslog: "/var/log/ejabberd/access.log"
   mod_last: {}
-  ## mod_muc_admin: {}
+  mod_mam: {}
+  mod_muc_admin: {}
   mod_muc:
     host: "conference.@HOST@"
     access: muc
@@ -211,7 +212,6 @@ modules:
         Hi.
         Welcome to this XMPP server.
     access: register
-  mod_mam: {}
   mod_roster: {}
   mod_shared_roster: {}
   mod_stats: {}

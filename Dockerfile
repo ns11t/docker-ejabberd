@@ -1,6 +1,6 @@
 FROM antonikonovalov/docker-golang
 
-ENV EJABBERD_VERSION 15.02
+ENV EJABBERD_VERSION 14.12
 ENV EJABBERD_USER ejabberd
 ENV EJABBERD_ROOT /opt/ejabberd
 ENV PATH  $EJABBERD_ROOT/bin:$PATH
@@ -47,6 +47,8 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
 # Copy modules into ejabberd lib folder
 cp ebin/mod_mam.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 cp ebin/mod_offline_post.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+cp ebin/mod_muc_admin.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+cp ebin/mod_admin_extra.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 # Make mod_muc_admin
 #RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
