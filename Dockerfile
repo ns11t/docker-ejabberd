@@ -44,12 +44,15 @@ COPY ejabberdctl.cfg.tpl $EJABBERD_ROOT/conf/ejabberdctl.cfg.tpl
 RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
+# Copy modules into ejabberd lib folder
+cp ebin/mod_mam.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+
 # Make mod_muc_admin
-RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
-    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
-    && mkdir -p ebin \
-    && $EJABBERD_ROOT/bin/erlc -o ebin -I include -I $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/include -DLAGER -DNO_EXT_LIB src/*erl \
-    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+#RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
+#    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
+#    && mkdir -p ebin \
+#    && $EJABBERD_ROOT/bin/erlc -o ebin -I include -I $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/include -DLAGER -DNO_EXT_LIB src/*erl \
+#    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
 #    && sh build.sh \
 #    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
 #    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
