@@ -55,7 +55,9 @@ RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra \
     && sh build.sh \
     && cp $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
-
+    && cd $EJABBERD_ROOT/mod_interact \
+    && sh build.sh \
+    && cp $EJABBERD_ROOT/mod_interact/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime

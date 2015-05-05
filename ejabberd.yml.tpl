@@ -155,6 +155,7 @@ language: "en"
 
 modules:
   mod_adhoc: {}
+  mod_admin_extra: {}
   mod_announce: # recommends mod_adhoc
     access: announce
   mod_blocking: {} # requires mod_privacy
@@ -182,6 +183,7 @@ modules:
   ## mod_muc_log: {}
   mod_offline:
     access_max_user_messages: max_user_offline_messages
+  mod_offline_post: {}
   mod_ping: {}
   ## mod_pres_counter:
   ##   count: 5
