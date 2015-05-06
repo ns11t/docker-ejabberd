@@ -59,18 +59,18 @@ RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/
     && git checkout e9f5cb2c146fc84fa82038a6cf3b16f708078c03 \
 #    && mkdir -p ebin \
 #    && $EJABBERD_ROOT/bin/erlc -o ebin -I include -I $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/include -DLAGER -DNO_EXT_LIB src/*erl \
-#    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+#    && cp -v $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
     && sh build.sh \
-    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+    && cp -v $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
     && sh build.sh \
-    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+    && cp -v $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra \
     && sh build.sh \
-    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+    && cp -v $EJABBERD_ROOT/ejabberd-contrib/mod_admin_extra/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 #    && cd $EJABBERD_ROOT/mod_interact \
 #    && sh build.sh \
-#    && cp $EJABBERD_ROOT/mod_interact/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+#    && cp -v $EJABBERD_ROOT/mod_interact/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 # Wrapper for setting config on disk from environment
 # allows setting things like XMPP domain at runtime
