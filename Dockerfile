@@ -53,7 +53,7 @@ cp ebin/mod_admin_extra.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 # Make mod_muc_admin
 cd modules/mod_muc_admin \
     && sh build.sh \
-    && cp ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+    && cp ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 #RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
 #    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
