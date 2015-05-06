@@ -45,7 +45,7 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
     && sed -i "s/root/$EJABBERD_USER/g" $EJABBERD_ROOT/bin/ejabberdctl
 
 # Copy modules into ejabberd lib folder
-#COPY ebin/mod_offline_post.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+COPY ebin/mod_offline_post.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin/mod_offline_post.beam
 #cp ebin/mod_mam.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 #cp ebin/mod_offline_post.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 #cp ebin/mod_muc_admin.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
