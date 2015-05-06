@@ -47,10 +47,14 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
 # Copy modules into ejabberd lib folder
 cp ebin/mod_mam.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 cp ebin/mod_offline_post.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
-cp ebin/mod_muc_admin.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
+#cp ebin/mod_muc_admin.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 cp ebin/mod_admin_extra.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 # Make mod_muc_admin
+cd ejabberd-contrib/mod_muc_admin \
+    && sh build.sh \
+    && cp ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
+
 #RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
 #    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
 #    && mkdir -p ebin \
