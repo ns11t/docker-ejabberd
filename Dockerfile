@@ -55,8 +55,8 @@ RUN sed -i "s/ejabberd.cfg/ejabberd.yml/" $EJABBERD_ROOT/bin/ejabberdctl \
 #    && cp modules/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
-    && git checkout e9f5cb2c146fc84fa82038a6cf3b16f708078c03 \
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
+    && git checkout e9f5cb2c146fc84fa82038a6cf3b16f708078c03 \
 #    && mkdir -p ebin \
 #    && $EJABBERD_ROOT/bin/erlc -o ebin -I include -I $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/include -DLAGER -DNO_EXT_LIB src/*erl \
 #    && cp $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
