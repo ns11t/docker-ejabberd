@@ -56,8 +56,9 @@ COPY ebin/mod_offline_post.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/eb
 #    && cp modules/mod_muc_admin/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin
 
 RUN git clone https://github.com/processone/ejabberd-contrib.git $EJABBERD_ROOT/ejabberd-contrib \
-    && cd $EJABBERD_ROOT/ejabberd-contrib/mod_mam \
+    && cd $EJABBERD_ROOT/ejabberd-contrib \
     && git checkout e9f5cb2c146fc84fa82038a6cf3b16f708078c03 \
+    && cd mod_mam \
     && sh build.sh \
     && cp -v $EJABBERD_ROOT/ejabberd-contrib/mod_mam/ebin/*.beam $EJABBERD_ROOT/lib/ejabberd-$EJABBERD_VERSION/ebin \
     && cd $EJABBERD_ROOT/ejabberd-contrib/mod_muc_admin \
